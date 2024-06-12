@@ -2,6 +2,8 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
     // Check length of taskList array and return number based on that
@@ -12,6 +14,8 @@ function generateTaskId() {
         return i;
     }
     else {
+
+        // If there is no task lsit presently, then we can set Id to 0
         let i = 0;
         return i;
     }
@@ -29,6 +33,7 @@ function createTaskCard(task) {
     taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
     taskCardBody = $('<p>').text(task.body);
     deleteButton = $('<button>').text("Delete");
+    deleteButton.attr('class', 'btn btn-delete');
 
     taskCard.append(taskCardTitle);
     taskCard.append(taskCardDueDate);
@@ -50,6 +55,23 @@ function renderTaskList() {
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
     // get modal form data and return the text input. this will be called by event listener
+    
+    // Create elements in jquery
+    let modalForm = $('<form>');
+    let titleLabel = $('<label>');
+    titleLabel.attr('for', 'taskTitle-in');
+    let titleInput = $('<input>');
+    titleInput.attr('id', 'taskTitle-in');
+    let bodyLabel = $('<label>').attr('for', 'taskBody-in');
+    let bodyInput = $('<input>').attr('id', 'taskBody-in');
+    
+    // Append elements in jquery
+    modalForm.append(titleLabel).text('Task:');
+    modalForm.append(titleInput);
+    modalForm.append(bodyLabel).text('Details:');
+    modalForm.append(bodyInput);
+    
+    $('.modal-body').append(modalForm);
 
 }
 
@@ -67,25 +89,20 @@ function handleDrop(event, ui) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
 
+    createTaskCard({
+        id: generateTaskId,
+        title: "Build more JS",
+        dueDate: "06/12/2024",
+        body: "I need to get good at jquery fast."
     
+    
+    });
 
-});
+    $('.btn').on('click', function (event) {
+        console.log(event.target);
+    })
 
-// Test createTaskCard function
-createTaskCard({
-    id: 0,
-    title: "Build more JS",
-    dueDate: "06/12/2024",
-    body: "I need to get good at jquery fast."
-
-
-});
-
-createTaskCard({
-    id: 0,
-    title: "Build even more JS",
-    dueDate: "06/12/2024",
-    body: "I need to get good at jquery fast."
-
+    $('#btn-add').on('click', handleAddTask());
+    
 
 });
