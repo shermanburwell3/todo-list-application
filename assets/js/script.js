@@ -10,7 +10,22 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-    //Create
+
+    // Create elements for task card
+    taskCard = $('div');
+    taskCard.attr('id', task.id);
+    taskCardTitle = $('<h3>').text(task.title);
+    taskCardDueDate = $('<p>').text(task.dueDate);
+    taskCardBody = $('<p>').text(task.body);
+    deleteButton = $('<button>').text("Delete");
+
+    taskCard.append(taskCardTitle);
+    taskCard.append(taskCardDueDate);
+    taskCard.append(taskCardBody);
+    taskCard.append(deleteButton);
+
+    $('#to-do').append(taskCard);
+    
 
 }
 
@@ -40,5 +55,17 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+
+    
+
+});
+
+// Test createTaskCard function
+createTaskCard({
+    id: 0,
+    title: "Build more JS",
+    dueDate: "06/12/2024",
+    body: "I need to get good at jquery fast."
+
 
 });
