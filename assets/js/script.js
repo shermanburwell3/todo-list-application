@@ -81,16 +81,16 @@ function handleAddTask(event){
 
     // // Create and append elements for date picker
     
-    modalForm.append(bodyLabel);
-    modalForm.append(bodyInput);
-    modalForm.append($(function () {
-        $('#datepicker').datepicker({
-          changeMonth: true,
-          changeYear: true,
-        });
-      }));
+    // modalForm.append(bodyLabel);
+    // modalForm.append(bodyInput);
+    // modalForm.append($(function () {
+    //     $('#datepicker').datepicker({
+    //       changeMonth: true,
+    //       changeYear: true,
+    //     });
+    //   }));
     
-    $('.modal-body').append(modalForm);
+    // $('.modal-body').append(modalForm);
 
 }
 
