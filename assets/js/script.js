@@ -56,20 +56,39 @@ function renderTaskList() {
 function handleAddTask(event){
     // get modal form data and return the text input. this will be called by event listener
     
-    // Create elements in jquery
-    let modalForm = $('<form>');
-    let titleLabel = $('<label>');
-    titleLabel.attr('for', 'taskTitle-in');
-    let titleInput = $('<input>');
-    titleInput.attr('id', 'taskTitle-in');
-    let bodyLabel = $('<label>').attr('for', 'taskBody-in');
-    let bodyInput = $('<input>').attr('id', 'taskBody-in');
+    // // Create and append elements in jquery for title
+    // let modalForm = $('<form>');
+    // let titleLabel = $('<label>');
+    // titleLabel.attr('for', 'taskTitle-in');
+    // titleLabel.attr('style', 'display: block;');
+    // titleLabel.text('Task:');
+    // let titleInput = $('<input>');
+    // titleInput.attr('id', 'taskTitle-in');
+    // titleInput.attr('style', 'display: block;');
+
+    // modalForm.append(titleLabel)
+    // modalForm.append(titleInput);
+
+    // // Create and append elements in jquery for title
+
+    // let bodyLabel = $('<label>');
+    // bodyLabel.attr('for', 'taskBody-in');
+    // bodyLabel.attr('style', 'display: block;');
+    // bodyLabel.text('Details:');
+    // let bodyInput = $('<textarea>');
+    // bodyInput.attr('id', 'taskBody-in');
+    // bodyInput.attr('style', 'display: block;');
+
+    // // Create and append elements for date picker
     
-    // Append elements in jquery
-    modalForm.append(titleLabel).text('Task:');
-    modalForm.append(titleInput);
-    modalForm.append(bodyLabel).text('Details:');
+    modalForm.append(bodyLabel);
     modalForm.append(bodyInput);
+    modalForm.append($(function () {
+        $('#datepicker').datepicker({
+          changeMonth: true,
+          changeYear: true,
+        });
+      }));
     
     $('.modal-body').append(modalForm);
 
