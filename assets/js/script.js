@@ -56,41 +56,53 @@ function renderTaskList() {
 function handleAddTask(event){
     // get modal form data and return the text input. this will be called by event listener
     
-    // // Create and append elements in jquery for title
-    // let modalForm = $('<form>');
-    // let titleLabel = $('<label>');
-    // titleLabel.attr('for', 'taskTitle-in');
-    // titleLabel.attr('style', 'display: block;');
-    // titleLabel.text('Task:');
-    // let titleInput = $('<input>');
-    // titleInput.attr('id', 'taskTitle-in');
-    // titleInput.attr('style', 'display: block;');
+    // Create and append elements in jquery for title
+    let modalForm = $('<form>');
+    let titleLabel = $('<label>');
+    titleLabel.attr('for', 'taskTitle-in');
+    titleLabel.attr('style', 'display: block;');
+    titleLabel.text('Task:');
+    let titleInput = $('<input>');
+    titleInput.attr('id', 'taskTitle-in');
+    titleInput.attr('style', 'display: block;');
 
-    // modalForm.append(titleLabel)
-    // modalForm.append(titleInput);
+    modalForm.append(titleLabel)
+    modalForm.append(titleInput);
 
-    // // Create and append elements in jquery for title
+    // Create and append elements in jquery for body
 
-    // let bodyLabel = $('<label>');
-    // bodyLabel.attr('for', 'taskBody-in');
-    // bodyLabel.attr('style', 'display: block;');
-    // bodyLabel.text('Details:');
-    // let bodyInput = $('<textarea>');
-    // bodyInput.attr('id', 'taskBody-in');
-    // bodyInput.attr('style', 'display: block;');
+    let bodyLabel = $('<label>');
+    bodyLabel.attr('for', 'taskBody-in');
+    bodyLabel.attr('style', 'display: block;');
+    bodyLabel.text('Details:');
+    let bodyInput = $('<textarea>');
+    bodyInput.attr('id', 'taskBody-in');
+    bodyInput.attr('style', 'display: block;');
 
-    // // Create and append elements for date picker
+    // Create and append elements for date picker
     
-    // modalForm.append(bodyLabel);
-    // modalForm.append(bodyInput);
-    // modalForm.append($(function () {
-    //     $('#datepicker').datepicker({
-    //       changeMonth: true,
-    //       changeYear: true,
-    //     });
-    //   }));
+    modalForm.append(bodyLabel);
+    modalForm.append(bodyInput);
+
+    // TODO: Work on datepicker.
+
+    let dateLabel = $('<label>');
+    dateLabel.attr('for', 'datepicker');
+    dateLabel.attr('style', 'display: block;');
+    let dateInput = $('<input>');
+    dateInput.attr('id', 'datepicker');
+    dateInput.attr('style', 'display: block');
+
+    modalForm.append(dateLabel);
+    modalForm.append(dateInput);
+    $('#datepicker').datepicker({
+          changeMonth: true,
+          changeYear: true,
+        });
     
-    // $('.modal-body').append(modalForm);
+    $('.modal-body').append(modalForm);
+
+    // TODO: Apply data if Save button is pressed, and clear if the close button is pressed
 
 }
 
