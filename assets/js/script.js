@@ -41,8 +41,15 @@ function createTaskCard(task) {
     taskCard.append(taskCardBody);
     taskCard.append(deleteButton);
 
-    $('#todo-cards').append(taskCard);
-    
+    if (task.status == 'to-do') {
+        $('#todo-cards').append(taskCard);
+    }
+    else if (task.status == 'in-progress') {
+        $('#in-progress-cards').append(taskCard);
+    }
+    else if (task.status == 'done') {
+        $('#done-cards').append(taskCard);
+    }
 
 }
 
@@ -52,7 +59,7 @@ function renderTaskList() {
     if (taskList.length != 0) {
         for (let i = 0; i < taskList.length; i++) {
             
-            task = taskList[i];
+            let task = taskList[i];
             console.log(task);
             createTaskCard(task);
 
@@ -122,12 +129,24 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+    // const droppedTaskId = ui.sortable.attr('id');
+    // const newStatus = $(event.target).attr('id'); // Assuming the column id matches the status
 
-    $( "#todo-cards, #in-progress-cards, #done-cards").sortable({
-        connectWith: ".card-list"
-    }).disableSelection();
-    // ul.sortable() advanced
+    // // Find the dropped task in the taskList
+    // const droppedTaskIndex = taskList.findIndex(task => task.id == droppedTaskId);
 
+    // if (droppedTaskIndex !== -1) {
+    //     // Update the status of the dropped task
+    //     taskList[droppedTaskIndex].status = newStatus;
+
+    //     // Update local storage
+    //     localStorage.setItem('tasks', JSON.stringify(taskList));
+
+    //     // Move the task card to the corresponding column in the UI
+    //     ui.draggable.appendTo($(event.target));
+    // }
+
+    console.log(event);
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
@@ -147,6 +166,14 @@ $(document).ready(function () {
         });
     });
 
+    $(function(event) {
+        $("#todo-cards, #in-progress-cards, #done-cards").sortable({
+            connectWith: ".card-list"
+        }).disableSelection();
+        console.log(event);
+        handleDrop(event);
+      });
+
         
     $('body').on('click', '.btn-delete', function (event) {
         handleDeleteTask(event);
@@ -155,10 +182,9 @@ $(document).ready(function () {
     $('#modal-footer-btn').on('click', function (event) {
         console.log(event);
         event.preventDefault();
+
         handleAddTask();
     });
-
-    handleDrop();
 
 
 
