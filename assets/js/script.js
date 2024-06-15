@@ -100,7 +100,7 @@ function handleDeleteTask(event){
 
     console.log(event);
 
-    event.target.remove();
+    $(event.target).parent.remove();
 
 
 }
@@ -186,9 +186,16 @@ $(document).ready(function () {
         handleAddTask(event);
     });
 
-    $('#btn-close').on('click', function (event) {
-        $('#formModal').attr('class', 'modal');
-    })
+    // $('#btn-close').on('click', function (event) {
+    //     $('body').attr('class','');
+    //     $('body').attr('style', '');
+    //     $('#formModal').attr('class', 'modal');
+    //     $('#formModal').attr('style', 'display: none;');
+    //     $('#formModal').attr('aria-hidden', 'true');
+    //     $('#formModal').removeAttr('aria-modal', '');
+    //     $('#formModal').removeAttr('role', '')
+    //     $('.modal-backdrop').remove();
+    // })
 
     $('.btn-delete').on('click', function (event) {
         console.log(event);
