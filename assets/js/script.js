@@ -30,8 +30,9 @@ function createTaskCard(task) {
     taskCard.attr('class','task-card');
     taskCard.attr('id', task.id);
     taskCard.attr('style', 'background-color: white;')
+    taskCard.attr('data-status', task.status);
     const taskCardTitle = $('<h3>').text(task.title);
-    taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
+    taskCardDueDate = $('<p>').text("Due by EoD: " + task.dueDate);
     const taskCardBody = $('<p>').text(task.body);
     const deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn-delete');
@@ -129,24 +130,24 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-    // const droppedTaskId = ui.sortable.attr('id');
-    // const newStatus = $(event.target).attr('id'); // Assuming the column id matches the status
+    let droppedElement = ui.draggable;
 
-    // // Find the dropped task in the taskList
-    // const droppedTaskIndex = taskList.findIndex(task => task.id == droppedTaskId);
-
-    // if (droppedTaskIndex !== -1) {
-    //     // Update the status of the dropped task
-    //     taskList[droppedTaskIndex].status = newStatus;
-
-    //     // Update local storage
-    //     localStorage.setItem('tasks', JSON.stringify(taskList));
-
-    //     // Move the task card to the corresponding column in the UI
-    //     ui.draggable.appendTo($(event.target));
-    // }
+    if ($(event.target).is('#todo-cards')) {
+        droppedElement.attr('data-status', 'todo');
+        console.log(`assign status to to-do`);
+    }
+    else if ($(event.target).is('#in-progress-cards')) {
+        droppedElement.attr('data-status', 'in-progress');
+        console.log(`assign status to in prog`);
+    }
+    else if ($(event.target).is('#done-cards')) {
+        droppedElement.attr('data-status', 'done');
+        console.log(`assign status to done`);
+        
+    }
 
     console.log(event);
+    console.log(ui);
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
@@ -168,10 +169,13 @@ $(document).ready(function () {
 
     $(function(event) {
         $("#todo-cards, #in-progress-cards, #done-cards").sortable({
-            connectWith: ".card-list"
+            connectWith: ".card-list",
+            update: function(event, ui) {
+            handleDrop(event, ui);
+            }
         }).disableSelection();
         console.log(event);
-        handleDrop(event);
+        
       });
 
         
