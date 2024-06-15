@@ -16,6 +16,7 @@ Red - Past task due date
 https://shermanburwell3.github.io/todo-list-application/
 
 ## Screenshot
+![Screenshot of deployed to do list application](image.png)
 
 ## Credits
 For jquery events such as hide(), I used code from w3schools.
