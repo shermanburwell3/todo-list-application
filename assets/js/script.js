@@ -38,10 +38,12 @@ function createTaskCard(task) {
     if (task.status != 'done'){
 
         const today = dayjs();
-        if (today.isSame(task.dueDate))
-            {
-                taskCard.attr('style', 'background-color: pink');
-            }
+        if (today.isSame(task.dueDate, 'day')) {
+            taskCard.attr('style', 'background-color: yellow');
+        }
+        if (today.isAfter(task.dueDate, 'day')) {
+            taskCard.attr('style', 'background-color: pink');
+        }
 
     }
 
