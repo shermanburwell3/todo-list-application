@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 
@@ -130,24 +130,47 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
-    let droppedElement = ui.draggable;
-
+    let droppedElement = ui.item;
+    let newStatus;
+    
     if ($(event.target).is('#todo-cards')) {
-        droppedElement.attr('data-status', 'todo');
+        droppedElement.attr('data-status', 'to-do');
         console.log(`assign status to to-do`);
+        newStatus = 'to-do';
+
     }
     else if ($(event.target).is('#in-progress-cards')) {
         droppedElement.attr('data-status', 'in-progress');
         console.log(`assign status to in prog`);
+        newStatus = 'in-progress';
     }
     else if ($(event.target).is('#done-cards')) {
         droppedElement.attr('data-status', 'done');
         console.log(`assign status to done`);
+        newStatus = 'done';
         
+    }
+
+    const taskId = droppedElement.attr('id');
+    const taskIndex = taskList.findIndex(task => task.id == taskId);
+
+    console.log(event);
+    console.log(ui);
+
+    if (taskIndex != -1) {
+        taskList[taskIndex].status = newStatus;
+        console.log(`Updated status of task with ID ${taskId} to ${newStatus}`);
+    } else {
+        console.log(`Task with ID ${taskId} not found in taskList`);
     }
 
     console.log(event);
     console.log(ui);
+
+    localStorage.setItem('tasks', JSON.stringify(taskList));
+
+
+    
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
