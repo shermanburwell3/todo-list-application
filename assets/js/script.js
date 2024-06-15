@@ -32,7 +32,7 @@ function createTaskCard(task) {
     let taskCardTitle = $('<h3>').text(task.title);
     taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
     let taskCardBody = $('<p>').text(task.body);
-    deleteButton = $('<button>').text("Delete");
+    let deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn-delete');
     console.log('elements created');
     taskCard.append(taskCardTitle);
@@ -87,29 +87,30 @@ function handleAddTask(){
     console.log(task);
 
     // Add new event listener for new delete button
-    $('.btn-delete').on('click', function (event) {
-        console.log($(event.target).parent());
-        handleDeleteTask(event);
-    });
+    // $('.btn-delete').on('click', function (event) {
+    //     console.log($(event.target).parent());
+    //     handleDeleteTask(event);
+    // });
 
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event){
+function handleDeleteTask(event) {
+    const taskId = $(event.target).parent().attr('id');
 
+    // Find the index of the task to delete
+    const taskIndex = taskList.findIndex(task => task.id === taskId);
 
-    for (let i = 0; i < taskList.length; i++){
+    if (taskIndex !== -1) {
+        // Remove the task from the taskList array
+        taskList.splice(taskIndex, 1);
 
-        if (taskList[i].id == $(event.target).parent().attr('id')){
+        // Update local storage
+        localStorage.setItem('tasks', JSON.stringify(taskList));
 
-            // Slice out old task, create new array
-            taskList = taskList.pop(i);
-            localStorage.setItem('tasks', JSON.stringify(taskList));
-            return console.log($(event.target).parent().remove());
-        }
+        // Remove the task card from the UI
+        $(event.target).parent().remove();
     }
-
-
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
@@ -137,63 +138,64 @@ $(document).ready(function () {
     console.log('rendering');
     renderTaskList();
     console.log('rendered');
+    handleDeleteTask;
 
     
     
     
     // Create and append elements in jquery for title
-    let modalForm = $('<form>');
-    modalForm.attr('id', 'modal-form')
-    let titleLabel = $('<label>');
-    titleLabel.attr('for', 'taskTitle-in');
-    titleLabel.attr('style', 'display: block;');
-    titleLabel.text('Task:');
-    let titleInput = $('<input>');
-    titleInput.attr('id', 'taskTitle-in');
-    titleInput.attr('style', 'display: block;');
+    // let modalForm = $('<form>');
+    // modalForm.attr('id', 'modal-form')
+    // let titleLabel = $('<label>');
+    // titleLabel.attr('for', 'taskTitle-in');
+    // titleLabel.attr('style', 'display: block;');
+    // titleLabel.text('Task:');
+    // let titleInput = $('<input>');
+    // titleInput.attr('id', 'taskTitle-in');
+    // titleInput.attr('style', 'display: block;');
 
-    modalForm.append(titleLabel)
-    modalForm.append(titleInput);
+    // modalForm.append(titleLabel)
+    // modalForm.append(titleInput);
 
-    // Create and append elements in jquery for body
+    // // Create and append elements in jquery for body
 
-    let bodyLabel = $('<label>');
-    bodyLabel.attr('for', 'taskBody-in');
-    bodyLabel.attr('style', 'display: block;');
-    bodyLabel.text('Details:');
-    let bodyInput = $('<textarea>');
-    bodyInput.attr('id', 'taskBody-in');
-    bodyInput.attr('style', 'display: block;');
+    // let bodyLabel = $('<label>');
+    // bodyLabel.attr('for', 'taskBody-in');
+    // bodyLabel.attr('style', 'display: block;');
+    // bodyLabel.text('Details:');
+    // let bodyInput = $('<textarea>');
+    // bodyInput.attr('id', 'taskBody-in');
+    // bodyInput.attr('style', 'display: block;');
 
-    modalForm.append(bodyLabel);
-    modalForm.append(bodyInput);
+    // modalForm.append(bodyLabel);
+    // modalForm.append(bodyInput);
 
-    // Create and append elements for date picker
+    // // Create and append elements for date picker
     
 
-    let dateLabel = $('<label>');
-    dateLabel.attr('for', 'datepicker');
-    dateLabel.attr('style', 'display: block;');
-    dateLabel.text('Date:');
-    let dateInput = $('<input>');
-    dateInput.attr('id', 'datepicker');
-    dateInput.attr('style', 'display: block;');
+    // let dateLabel = $('<label>');
+    // dateLabel.attr('for', 'datepicker');
+    // dateLabel.attr('style', 'display: block;');
+    // dateLabel.text('Date:');
+    // let dateInput = $('<input>');
+    // dateInput.attr('id', 'datepicker');
+    // dateInput.attr('style', 'display: block;');
 
-    modalForm.append(dateLabel);
-    modalForm.append(dateInput);
-    $(function() {
-        $('#datepicker').datepicker({
-            changeMonth: true,
-            changeYear: true,
-        });
-    });
+    // modalForm.append(dateLabel);
+    // modalForm.append(dateInput);
+    // $(function() {
+    //     $('#datepicker').datepicker({
+    //         changeMonth: true,
+    //         changeYear: true,
+    //     });
+    // });
     
-    $('.modal-body').append(modalForm);
+    // $('.modal-body').append(modalForm);
 
-    $('#btn-save').on('click', function (event) {
-        console.log(event);
-        handleAddTask(event);
-    });
+    // $('#btn-save').on('click', function (event) {
+    //     console.log(event);
+    //     handleAddTask(event);
+    // });
 
     // $('#btn-close').on('click', function (event) {
     //     $('body').attr('class','');
@@ -206,7 +208,7 @@ $(document).ready(function () {
     //     $('.modal-backdrop').remove();
     // })
 
-    $('.btn').on('click', function (event) {
+    $('.btn-delete').on('click', function (event) {
         console.log(event);
         handleDeleteTask(event);
     });
