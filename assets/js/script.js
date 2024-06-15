@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = [JSON.parse(localStorage.getItem("tasks"))];
+let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 
@@ -26,13 +26,14 @@ function generateTaskId() {
 function createTaskCard(task) {
 
     // Create elements for task card
-    let taskCard = $('<div>');
+    const taskCard = $('<div>');
+    taskCard.attr('class','task-card');
     taskCard.attr('id', task.id);
     taskCard.attr('style', 'background-color: white;')
-    let taskCardTitle = $('<h3>').text(task.title);
+    const taskCardTitle = $('<h3>').text(task.title);
     taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
-    let taskCardBody = $('<p>').text(task.body);
-    let deleteButton = $('<button>').text("Delete");
+    const taskCardBody = $('<p>').text(task.body);
+    const deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn-delete');
     console.log('elements created');
     taskCard.append(taskCardTitle);
@@ -48,7 +49,7 @@ function createTaskCard(task) {
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
 
-    if (taskList) {
+    if (taskList.length != 0) {
         for (let i = 0; i < taskList.length; i++) {
             
             task = taskList[i];
@@ -66,9 +67,9 @@ function handleAddTask(){
 
     task = {
         id: generateTaskId(),
-        title: $('#taskTitle-in').val(),
+        title: $('#taskTitle').val(),
         dueDate: $('#datepicker').val(),
-        body: $('#taskBody-in').val(),
+        body: $('#taskBody').val(),
         status: "to-do",
 
     };
@@ -96,6 +97,7 @@ function handleAddTask(){
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
+    console.log('deleting...');
     const taskId = $(event.target).parent().attr('id');
 
     // Find the index of the task to delete
@@ -110,6 +112,8 @@ function handleDeleteTask(event) {
 
         // Remove the task card from the UI
         $(event.target).parent().remove();
+
+        console.log('Deleted!');
     }
 }
 
@@ -121,18 +125,6 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-    // createTaskCard({
-    //     id: nextId,
-    //     title: "Build more JS",
-    //     dueDate: "06/12/2024",
-    //     body: "I need to get good at jquery fast."
-    
-    
-    // });
-
-    // $('.btn').on('click', function (event) {
-    //     console.log(event.target);
-    // });
 
     //Render task list from localStorage
     console.log('rendering');
@@ -142,15 +134,24 @@ $(document).ready(function () {
     
     
     $(function() {
-             $('#datepicker').datepicker({
-                 changeMonth: true,
-                 changeYear: true,
-             });
-         });
+        $('#datepicker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+        });
+    });
 
-    $('.btn-delete').on('click', function (event) {
+        
+    $('.task-card').on('click', function (event) {
         console.log(event);
-        handleDeleteTask(event);
+        if ($(event.target.className) == 'btn-delete') {
+            handleDeleteTask(event);
+        }
+    });
+
+    $('#modal-footer-btn').on('click', function (event) {
+        console.log(event);
+        event.preventDefault();
+        handleAddTask();
     });
 
 

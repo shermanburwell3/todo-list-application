@@ -41,22 +41,22 @@
               <form id="taskForm"> 
                 <div class="row align-items-center"> 
                   <div class="col-6 col-form-label"> 
-                    <label for="title">Task Title</label> 
-                    <input type="text" name="title" id="title" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
+                    <label for="taskTitle">Task Title</label> 
+                    <input type="text" name="taskTitle" id="taskTitle" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
                   </div> 
                   <div class="col-6 col-form-label"> 
-                    <label for="taskDueDate">Task Due Date</label> 
+                    <label for="datepicker">Task Due Date</label> 
                     <input type="text" class="form-control ui-widget-content ui-corner-all" id="datepicker" autocomplete="off" required/> 
                   </div> 
                 </div> 
                 <div class="row"> 
                   <div> 
-                    <label class="col" for="taskDescription">Task Description</label> 
-                    <input type="taskDescription" name="taskDescription" id="taskDescription" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
+                    <label class="col" for="taskBody">Details</label> 
+                    <input type="taskDescription" name="taskBody" id="taskBody" value="" class="form-control text ui-widget-content ui-corner-all 1h-lg" required/> 
                   </div> 
                 </div> 
                 <div class="modal-footer"> 
-                  <button class="btn btn-success" data-bs-dismiss="modal" data-bs-target="#formModal">Add Task</button> 
+                  <button id="modal-footer-btn" class="btn btn-success" data-bs-dismiss="modal" data-bs-target="#formModal">Add Task</button> 
                 </div> 
               </form> 
             </div> 
