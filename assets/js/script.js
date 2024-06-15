@@ -33,7 +33,7 @@ function createTaskCard(task) {
     taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
     let taskCardBody = $('<p>').text(task.body);
     deleteButton = $('<button>').text("Delete");
-    deleteButton.attr('class', 'btn btn-delete');
+    deleteButton.attr('class', 'btn-delete');
 
     taskCard.append(taskCardTitle);
     taskCard.append(taskCardDueDate);
@@ -61,6 +61,7 @@ function handleAddTask(event){
         title: $('#taskTitle-in').val(),
         dueDate: $('#datepicker').val(),
         body: $('#taskBody-in').val(),
+        status: 'to-do',
 
     };
 
@@ -84,6 +85,11 @@ function handleAddTask(event){
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
+
+    console.log(event);
+
+    event.target.remove();
+
 
 }
 
@@ -163,6 +169,11 @@ $(document).ready(function () {
     $('#btn-save').on('click', function (event) {
         console.log(event);
         handleAddTask(event);
+    });
+
+    $('.btn-delete').on('click', function (event) {
+        console.log(event);
+        handleDeleteTask(event);
     });
 
     console.log(taskList);
