@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+let taskList = [JSON.parse(localStorage.getItem("tasks"))];
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 
@@ -34,7 +34,7 @@ function createTaskCard(task) {
     let taskCardBody = $('<p>').text(task.body);
     deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn-delete');
-
+    console.log('elements created');
     taskCard.append(taskCardTitle);
     taskCard.append(taskCardDueDate);
     taskCard.append(taskCardBody);
@@ -50,7 +50,9 @@ function renderTaskList() {
 
     if (taskList) {
         for (let i = 0; i < taskList.length; i++) {
+            
             task = taskList[i];
+            console.log(task);
             createTaskCard(task);
 
         }
@@ -59,7 +61,7 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event){
+function handleAddTask(){
 
 
     task = {
@@ -67,7 +69,7 @@ function handleAddTask(event){
         title: $('#taskTitle-in').val(),
         dueDate: $('#datepicker').val(),
         body: $('#taskBody-in').val(),
-        status: 'to-do',
+        status: "to-do",
 
     };
 
@@ -75,6 +77,7 @@ function handleAddTask(event){
         taskList = [task];
     }
     else {
+        console.log(taskList);
         taskList.push(task);
     }
     createTaskCard(task);
@@ -89,18 +92,22 @@ function handleAddTask(event){
         handleDeleteTask(event);
     });
 
-    
-
-    console.log(event);
-
 }
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
 
-    console.log(event);
 
-    $(event.target).parent.remove();
+    for (let i = 0; i < taskList.length; i++){
+
+        if (taskList[i].id == $(event.target).parent().attr('id')){
+
+            // Slice out old task, create new array
+            taskList = taskList.pop(i);
+            localStorage.setItem('tasks', JSON.stringify(taskList));
+            return console.log($(event.target).parent().remove());
+        }
+    }
 
 
 }
@@ -127,7 +134,9 @@ $(document).ready(function () {
     // });
 
     //Render task list from localStorage
+    console.log('rendering');
     renderTaskList();
+    console.log('rendered');
 
     
     
@@ -197,7 +206,7 @@ $(document).ready(function () {
     //     $('.modal-backdrop').remove();
     // })
 
-    $('.btn-delete').on('click', function (event) {
+    $('.btn').on('click', function (event) {
         console.log(event);
         handleDeleteTask(event);
     });
