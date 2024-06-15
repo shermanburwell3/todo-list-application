@@ -18,7 +18,6 @@ body {
 .card-list {
   min-width: 50px;
   min-height: 100px;
-  background-color: blueviolet;
 }
 
 /* .modal-body label, input {

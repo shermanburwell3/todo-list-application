@@ -29,7 +29,7 @@ function createTaskCard(task) {
     const taskCard = $('<div>');
     taskCard.attr('class','task-card');
     taskCard.attr('id', task.id);
-    taskCard.attr('style', 'background-color: white;')
+    taskCard.attr('style', 'background-color: palegreen;')
     taskCard.attr('data-status', task.status);
     const taskCardTitle = $('<h3>').text(task.title);
     taskCardDueDate = $('<p>').text("Due by EoD: " + task.dueDate);
@@ -39,10 +39,10 @@ function createTaskCard(task) {
 
         const today = dayjs();
         if (today.isSame(task.dueDate, 'day')) {
-            taskCard.attr('style', 'background-color: yellow');
+            taskCard.attr('style', 'background-color: palegoldenrod;');
         }
         if (today.isAfter(task.dueDate, 'day')) {
-            taskCard.attr('style', 'background-color: pink');
+            taskCard.attr('style', 'background-color: palevioletred;');
         }
 
     }
@@ -63,6 +63,7 @@ function createTaskCard(task) {
         $('#in-progress-cards').append(taskCard);
     }
     else if (task.status == 'done') {
+        taskCard.attr('style', 'background-color: palegreen;');
         $('#done-cards').append(taskCard);
     }
 
