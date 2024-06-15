@@ -99,9 +99,12 @@ function handleAddTask(){
 function handleDeleteTask(event) {
     console.log('deleting...');
     const taskId = $(event.target).parent().attr('id');
+    console.log(taskId);
 
     // Find the index of the task to delete
-    const taskIndex = taskList.findIndex(task => task.id === taskId);
+    const taskIndex = taskList.findIndex(task => task.id == taskId);
+
+    console.log(taskIndex);
 
     if (taskIndex !== -1) {
         // Remove the task from the taskList array
@@ -141,11 +144,8 @@ $(document).ready(function () {
     });
 
         
-    $('.task-card').on('click', function (event) {
-        console.log(event);
-        if ($(event.target.className) == 'btn-delete') {
-            handleDeleteTask(event);
-        }
+    $('body').on('click', '.btn-delete', function (event) {
+        handleDeleteTask(event);
     });
 
     $('#modal-footer-btn').on('click', function (event) {
