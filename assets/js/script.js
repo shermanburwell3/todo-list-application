@@ -88,7 +88,7 @@ function handleAddTask(){
 
     // Add new event listener for new delete button
     $('.btn-delete').on('click', function (event) {
-        console.log(event);
+        console.log($(event.target).parent());
         handleDeleteTask(event);
     });
 
