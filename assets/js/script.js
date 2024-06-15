@@ -16,7 +16,8 @@ function generateTaskId() {
     if (!nextId) {
         // Assign value to nextId in localStorage
         localStorage.setItem("nextId", "0");
-        return JSON.parse(localStorage.getItem("nextId"));
+        nextId = JSON.parse(localStorage.getItem("nextId"));
+        return nextId;
     }
 
 }
@@ -56,15 +57,23 @@ function handleAddTask(event){
 
 
     task = {
-        id: nextId,
-        title: $('#taskTitle-in'),
-        dueDate: $('#datepicker'),
-        body: $('#taskBody-in'),
+        id: generateTaskId(),
+        title: $('#taskTitle-in').val(),
+        dueDate: $('#datepicker').val(),
+        body: $('#taskBody-in').val(),
 
     };
+
+    if (!taskList){
+        taskList = [task];
+    }
+    else {
+        taskList.push(task);
+    }
     createTaskCard(task);
     nextId++;
-    taskList.append(task);
+    localStorage.setItem('nextId', nextId);
+    localStorage.setItem('tasks', JSON.stringify(taskList));
     console.log(task);
 
     
@@ -155,5 +164,7 @@ $(document).ready(function () {
         console.log(event);
         handleAddTask(event);
     });
+
+    console.log(taskList);
 
 });
