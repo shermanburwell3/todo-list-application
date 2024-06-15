@@ -143,6 +143,12 @@ $(document).ready(function () {
         });
     });
 
+    $(function() {
+        $( "#todo-cards, #in-progress-cards, #done-cards").sortable({
+            connectWith: ".card"
+        }).disableSelection();
+      });
+
         
     $('body').on('click', '.btn-delete', function (event) {
         handleDeleteTask(event);
