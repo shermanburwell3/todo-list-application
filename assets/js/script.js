@@ -6,18 +6,17 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-    // Check length of taskList array and return number based on that
+    // Check for existing task list and nextId
     if (taskList) {
-
-    // Generate an ID based on the length of existing tasks
-        let i = taskList.length;
-        return i;
+        if (nextId) {
+            return nextId;
+        }
     }
-    else {
 
-        // If there is no task lsit presently, then we can set Id to 0
-        let i = 0;
-        return i;
+    if (!nextId) {
+        // Assign value to nextId in localStorage
+        localStorage.setItem("nextId", "0");
+        return JSON.parse(localStorage.getItem("nextId"));
     }
 
 }
@@ -26,12 +25,12 @@ function generateTaskId() {
 function createTaskCard(task) {
 
     // Create elements for task card
-    taskCard = $('<div>');
-    taskCard.attr('id', generateTaskId);
+    let taskCard = $('<div>');
+    taskCard.attr('id', task.id);
     taskCard.attr('style', 'background-color: white;')
-    taskCardTitle = $('<h3>').text(task.title);
+    let taskCardTitle = $('<h3>').text(task.title);
     taskCardDueDate = $('<p>').text("Due by EoD: " +task.dueDate);
-    taskCardBody = $('<p>').text(task.body);
+    let taskCardBody = $('<p>').text(task.body);
     deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn btn-delete');
 
@@ -54,11 +53,23 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
-    // get modal form data and return the text input. this will be called by event listener
-    
+
+
+    task = {
+        id: nextId,
+        title: $('#taskTitle-in'),
+        dueDate: $('#datepicker'),
+        body: $('#taskBody-in'),
+
+    };
+    createTaskCard(task);
+    nextId++;
+    taskList.append(task);
+    console.log(task);
+
     
 
-    // TODO: Apply data if Save button is pressed, and clear if the close button is pressed
+    console.log(event);
 
 }
 
@@ -75,21 +86,21 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
-
-    createTaskCard({
-        id: generateTaskId,
-        title: "Build more JS",
-        dueDate: "06/12/2024",
-        body: "I need to get good at jquery fast."
+    // createTaskCard({
+    //     id: nextId,
+    //     title: "Build more JS",
+    //     dueDate: "06/12/2024",
+    //     body: "I need to get good at jquery fast."
     
     
-    });
+    // });
 
-    $('.btn').on('click', function (event) {
-        console.log(event.target);
-    })
+    // $('.btn').on('click', function (event) {
+    //     console.log(event.target);
+    // });
 
-    $('#btn-add').on('click', handleAddTask());
+    
+    
     
     // Create and append elements in jquery for title
     let modalForm = $('<form>');
@@ -139,4 +150,10 @@ $(document).ready(function () {
     });
     
     $('.modal-body').append(modalForm);
+
+    $('#btn-save').on('click', function (event) {
+        console.log(event);
+        handleAddTask(event);
+    });
+
 });
