@@ -48,7 +48,13 @@ function createTaskCard(task) {
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
 
-    // create ul based on localStorage and ul.sortable()
+    if (taskList) {
+        for (let i = 0; i < taskList.length; i++) {
+            task = taskList[i];
+            createTaskCard(task);
+
+        }
+    }
 
 }
 
@@ -76,6 +82,12 @@ function handleAddTask(event){
     localStorage.setItem('nextId', nextId);
     localStorage.setItem('tasks', JSON.stringify(taskList));
     console.log(task);
+
+    // Add new event listener for new delete button
+    $('.btn-delete').on('click', function (event) {
+        console.log(event);
+        handleDeleteTask(event);
+    });
 
     
 
@@ -113,6 +125,9 @@ $(document).ready(function () {
     // $('.btn').on('click', function (event) {
     //     console.log(event.target);
     // });
+
+    //Render task list from localStorage
+    renderTaskList();
 
     
     
@@ -170,6 +185,10 @@ $(document).ready(function () {
         console.log(event);
         handleAddTask(event);
     });
+
+    $('#btn-close').on('click', function (event) {
+        $('#formModal').attr('class', 'modal');
+    })
 
     $('.btn-delete').on('click', function (event) {
         console.log(event);
