@@ -196,7 +196,7 @@ $(document).ready(function () {
     renderTaskList();
     console.log('rendered');
 
-    console.log(dayjs('1999-01-01').fromNow());
+    console.log(dayjs().isSame('06/15/2024', 'day'));
     
     $(function() {
         $('#datepicker').datepicker({
