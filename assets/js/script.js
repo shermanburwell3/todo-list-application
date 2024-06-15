@@ -124,7 +124,7 @@ function handleDeleteTask(event) {
 function handleDrop(event, ui) {
 
     $( "#todo-cards, #in-progress-cards, #done-cards").sortable({
-        connectWith: ".card"
+        connectWith: ".card-list"
     }).disableSelection();
     // ul.sortable() advanced
 
