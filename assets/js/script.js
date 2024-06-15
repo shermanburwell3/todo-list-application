@@ -33,6 +33,18 @@ function createTaskCard(task) {
     taskCard.attr('data-status', task.status);
     const taskCardTitle = $('<h3>').text(task.title);
     taskCardDueDate = $('<p>').text("Due by EoD: " + task.dueDate);
+
+    // Color coding
+    if (task.status != 'done'){
+
+        const today = dayjs();
+        if (today.isSame(task.dueDate))
+            {
+                taskCard.attr('style', 'background-color: pink');
+            }
+
+    }
+
     const taskCardBody = $('<p>').text(task.body);
     const deleteButton = $('<button>').text("Delete");
     deleteButton.attr('class', 'btn-delete');
@@ -65,6 +77,9 @@ function renderTaskList() {
             createTaskCard(task);
 
         }
+        
+
+
     }
 
 }
@@ -181,7 +196,7 @@ $(document).ready(function () {
     renderTaskList();
     console.log('rendered');
 
-    
+    console.log(dayjs('1999-01-01').fromNow());
     
     $(function() {
         $('#datepicker').datepicker({
