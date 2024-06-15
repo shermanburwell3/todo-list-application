@@ -122,6 +122,10 @@ function handleDeleteTask(event) {
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+
+    $( "#todo-cards, #in-progress-cards, #done-cards").sortable({
+        connectWith: ".card"
+    }).disableSelection();
     // ul.sortable() advanced
 
 }
@@ -143,12 +147,6 @@ $(document).ready(function () {
         });
     });
 
-    $(function() {
-        $( "#todo-cards, #in-progress-cards, #done-cards").sortable({
-            connectWith: ".card"
-        }).disableSelection();
-      });
-
         
     $('body').on('click', '.btn-delete', function (event) {
         handleDeleteTask(event);
@@ -159,6 +157,8 @@ $(document).ready(function () {
         event.preventDefault();
         handleAddTask();
     });
+
+    handleDrop();
 
 
 
