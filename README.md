@@ -36,3 +36,6 @@ link: https://www.geeksforgeeks.org/jquery-ui-sortable-update-event/
 
 A lot of code was tweaked by Xpert Learning Assistant on bootcampspot.
 link: https://bootcampspot.instructure.com/courses/5313/external_tools/313
+
+Day JS functions referenced from documentation.
+link: https://day.js.org
